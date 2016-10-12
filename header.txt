@@ -1,0 +1,80 @@
+\documentclass[10pt,openright]{book}
+
+%General statements
+\usepackage{multicol} 
+\usepackage{subfigure} 
+\usepackage{graphicx} 
+\usepackage{amsmath} 
+\usepackage[papersize={6.6in,9.4in},twoside=true]{geometry} 
+\usepackage[]{todonotes} 
+\usepackage[square,numbers,sort&compress]{natbib} 
+\usepackage{bibunits} 
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage{hyperref}
+
+%\newcommand\acknowledgement{acknowledgement}  %%% here
+\makeatletter
+\newenvironment{acknowledgement}{%
+        \section*{Acknowledgement}%
+        \small
+        \begin{center}%
+          \vspace{\z@}%
+        \end{center}%
+}
+\makeatother
+\makeatletter
+\newenvironment{suppinfo}{%
+        \section*{Supporting information}%
+        \small
+        \begin{center}%
+          \vspace{\z@}%
+        \end{center}%
+}
+\makeatother
+\makeatletter
+\newenvironment{abstract}{%
+        \section*{Abstract}%
+        \small
+        \begin{center}%
+          \vspace{\z@}%
+        \end{center}%
+}
+\makeatother
+
+\usepackage[version=3]{mhchem} %Package for typesetting chemical equation
+\usepackage[]{siunitx} %SI units for e.g. micrometer
+\DeclareSIUnit\wn{\cm\tothe{-1}}
+
+\usepackage{setspace}
+%\doublespacing
+
+%%%%%%%%%%%%%%%
+% FONT STUFF
+%%%%%%%%%%%%%%%
+
+\usepackage[adobe-utopia]{mathdesign}
+\usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%
+%Formatting and layout statements
+%%%%%%%%%%%%%%%
+\usepackage[bf,small,it]{caption} %Nice looking captions
+\usepackage[Bjornstrup]{fncychap} %Nice chapter layour
+%\ChNumVar{\fontsize{60}{62}\usefont{T1}{pzc}{b}{n}\selectfont\textcolor{blue}}
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[CE,CO]{\chaptername \ \thechapter}
+\fancyfoot[CE,CO]{\thepage}
+
+%%%%%%%%%%%%%%%
+% User defined command and abbreviations
+%%%%%%%%%%%%%%%
+
+\newcommand{\efs}{EFISH}
+\newcommand{\cSi}{$c$-Si}
+
+\begin{document}
+\presetkeys{todonotes}{inline}{}%Always inline todos
+

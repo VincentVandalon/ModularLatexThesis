@@ -1,0 +1,22 @@
+% vim: guifont=Monospace\ 16 
+
+\begin{bibunit}[plain]
+\ifdefined\thechapter
+   \setcounter{chapter}{0}
+   \chapter{Chapter title}
+\else
+   \maketitle
+\fi
+
+   
+   
+\begin{abstract}
+   %
+   The abstract
+   %
+\end{abstract}
+\section{Some sections}
+\cite{Vandalon2016}
+
+\putbib[library]
+\end{bibunit}
