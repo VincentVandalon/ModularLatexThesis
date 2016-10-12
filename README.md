@@ -12,3 +12,6 @@ such that it is possible to:
 
 with the least amount of manual effort. This project started since I needed an 
 efficient way to compile my PhD thesis, while makelatex did not seem to offer the freedom I needed.
+
+Note that this supports parallel compilation for the sub-documents, so run make -j all to
+save a lot of time!
