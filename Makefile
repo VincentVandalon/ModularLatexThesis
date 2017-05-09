@@ -1,11 +1,11 @@
-all: ch0.pdf ch1.pdf
+all: ch0.pdf ch1.pdf ch2.pdf
 
 
 full:
 	$(eval TEMPDIR=build/$(basename $<))
 	mkdir -p $(TEMPDIR)
 	$(eval PDFLARGS=-interaction=batchmode -output-directory $(TEMPDIR))
-	cat header.txt ch0.tex ch1.tex footer.txt > full-thesis-merge.tex
+	cat header.txt ch0.tex ch1.tex ch2.tex footer.txt > full-thesis-merge.tex
 	pdflatex $(PDFLARGS) full-thesis-merge.tex
 	bibtex $(TEMPDIR)/bu1
 	pdflatex $(PDFLARGS) full-thesis-merge.tex

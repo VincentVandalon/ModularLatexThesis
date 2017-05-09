@@ -1,80 +1,203 @@
-\documentclass[10pt,openright]{book}
+\documentclass[10pt,twoside,openright]{book}
 
-%General statements
-\usepackage{multicol} 
-\usepackage{subfigure} 
-\usepackage{graphicx} 
-\usepackage{amsmath} 
-\usepackage[papersize={6.6in,9.4in},twoside=true]{geometry} 
-\usepackage[]{todonotes} 
-\usepackage[square,numbers,sort&compress]{natbib} 
-\usepackage{bibunits} 
+%Set the right paper layout (for the TU/e thesis)
+\usepackage[paperheight=24cm,paperwidth=17cm,top=25mm,left=20mm,right=27mm,bottom=20mm,heightrounded,twoside=true]{geometry}
+\geometry{bindingoffset=10mm}
+
+%For 2 column layout
+\usepackage{multicol}
+
+%Rather generic, often used, and self explanatory packages
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[]{todonotes}
+\usepackage[super,numbers,sort&compress]{natbib}
+\usepackage{setspace} %Double space for proof reading
+\usepackage{siunitx} %SI units for e.g. micrometer
+
+%Make bib per chapter and more compact
+\usepackage[sectionbib]{bibunits}
+\setlength{\bibsep}{0.0pt}
+
+%Prevent floats from moving too much with \FloatBarrier
+\usepackage{placeins}
+
+%Get rid of a lot of white space in lists
+\usepackage{enumitem}
+\setlist{noitemsep} %to leave space around whole list
+
+%For autogenerating text for the examples
+\usepackage{blindtext}
+
+%Set colors used in document
 \usepackage{xcolor}
-\usepackage{ragged2e}
-\usepackage{hyperref}
+\definecolor{red}{rgb}{.8,0,0}
+\definecolor{Red}{rgb}{.8,0,0}
 
-%\newcommand\acknowledgement{acknowledgement}  %%% here
-\makeatletter
-\newenvironment{acknowledgement}{%
-        \section*{Acknowledgement}%
-        \small
-        \begin{center}%
-          \vspace{\z@}%
-        \end{center}%
-}
-\makeatother
-\makeatletter
-\newenvironment{suppinfo}{%
-        \section*{Supporting information}%
-        \small
-        \begin{center}%
-          \vspace{\z@}%
-        \end{center}%
-}
-\makeatother
-\makeatletter
-\newenvironment{abstract}{%
-        \section*{Abstract}%
-        \small
-        \begin{center}%
-          \vspace{\z@}%
-        \end{center}%
-}
-\makeatother
+%Clickable and colored refs
+\usepackage[colorlinks=true,allcolors=Red]{hyperref}
+%Make doi entries clickable in Bibliography section
+\usepackage{doi}
 
-\usepackage[version=3]{mhchem} %Package for typesetting chemical equation
-\usepackage[]{siunitx} %SI units for e.g. micrometer
-\DeclareSIUnit\wn{\cm\tothe{-1}}
+%Package for typesetting chemical equation
+\usepackage[version=4,arrows=pgf-filled]{mhchem}
 
-\usepackage{setspace}
-%\doublespacing
+%Nice tables which can be colored
+\usepackage{booktabs} %To top and bottom line are thicker
+\usepackage{colortbl}
+\arrayrulecolor{red}
 
-%%%%%%%%%%%%%%%
-% FONT STUFF
-%%%%%%%%%%%%%%%
-
+%font related
 \usepackage[adobe-utopia]{mathdesign}
 \usepackage[T1]{fontenc}
 
+%Nice looking captions
+\usepackage[bf,small]{caption} 
+
+%Good hyphenation
+\usepackage[english.british]{babel}
+\usepackage{microtype} %VERY IMPORTANT, AVOID WORDS STICKING
+                       %OUT OF RIGHT MARGIN
+
+%This defines the subfigure style
+\tikzstyle{label}=[inner sep=0,outer
+sep=0,rectangle,fill=red,draw=red,text=white,minimum
+size=4mm,rounded corners=0mm]
+
+%Style for referring to subfigures
+\newcommand{\subfiglab}[1]{\textcolor{red}{\textbf{{#1}}}}
+
+%Frame pages, useful for printing on A4 without scaling  to see where the
+%border of the printed page would be
+%\usepackage[center,dvips,frame]{crop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom Chapter, Section, .. titles
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titlesec}
+%Because of bug in titlesec in Ubuntu
+\usepackage{etoolbox}
+\usepackage[export]{adjustbox}
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+
+% this length controls the hanging indent for titles
+\newlength\titleindent
+\setlength\titleindent{3mm}
+\assignpagestyle{\chapter}{empty}
+\renewcommand*\sfdefault{phv}
+
+
+\titleformat{\chapter}[block]{\sffamily\Huge\bfseries\raggedright}{\lapbox{1.4\textwidth}{%
+\fcolorbox{red}{red}{\makebox[\titleindent]{\phantom{1}}}\makebox[10mm]{\textcolor{red}\thechapter}%
+\fcolorbox{red}{red}{\makebox[2.5cm]{\textcolor{red}\thechapter}}
+}}{0em}{\textcolor{red}}
+
+\titleformat{\section} {\sffamily\Large\bfseries}{\llap{\makebox[\titleindent]{}\textcolor{red}\thesection\makebox[\titleindent]{}}}{0em}{\textcolor{red}}
+
+\titleformat{\subsection}{\sffamily\large\bfseries}{}{0em}{\textcolor{red}}
+
 %%%%%%%%%%%%%%%
-%Formatting and layout statements
+% Fancy headers
 %%%%%%%%%%%%%%%
-\usepackage[bf,small,it]{caption} %Nice looking captions
-\usepackage[Bjornstrup]{fncychap} %Nice chapter layour
-%\ChNumVar{\fontsize{60}{62}\usefont{T1}{pzc}{b}{n}\selectfont\textcolor{blue}}
 \usepackage{fancyhdr} 
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[CE,CO]{\chaptername \ \thechapter}
-\fancyfoot[CE,CO]{\thepage}
+%\fancypagestyle{fancy}{%
+\fancyhf{}%clear everything
+\fancyhead[RO]{\sffamily\chaptername\ \thechapter\ \textcolor{red}{\textbf{| \thepage}}}
+\fancyhead[LE]{\sffamily\textcolor{red}{\textbf{\thepage\ |}} \chaptername\ \thechapter}
+%}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+}
+\fancypagestyle{emtpy}{%
+  \fancyhf{}
+}
 
-%%%%%%%%%%%%%%%
-% User defined command and abbreviations
-%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+% Redefine environments
+%%%%%%%%%%%%%%%%%%%%%%%
+%Color boxes that break over page boundary
+\usepackage[framemethod=TikZ]{mdframed}
+\usetikzlibrary{shadows}
 
-\newcommand{\efs}{EFISH}
-\newcommand{\cSi}{$c$-Si}
+\mdfdefinestyle{MyFrame}{%
+    linecolor=red,
+    outerlinewidth=1pt,
+    roundcorner=10pt,
+    innertopmargin=\baselineskip,
+    innerbottommargin=\baselineskip,
+    innerrightmargin=20pt,
+    innerleftmargin=20pt,
+    backgroundcolor=white,
+    shadow=false,
+    nobreak=true}
 
+\newenvironment{panel}[1]{
+\begin{figure}[p]
+  \begin{mdframed}[style=MyFrame]
+     \textcolor{red}{\sffamily\textbf{#1}}
+      \color{red}\hrule\color{black}
+
+   \setlength{\parindent}{5mm}%
+     \rmfamily\small\vspace{2mm}
+  }
+  {
+     \end{mdframed}
+     % No caption, then the figure number is not changed
+   \end{figure}
+  }
+
+\makeatletter
+\newenvironment{acknowledgement}{%
+        \section*{Acknowledgements}%
+        \small
+        \begin{center}%
+          \vspace{\z@}%
+        \end{center}%
+}
+
+\usepackage{appendix}
+
+\makeatother
+\makeatletter
+\newenvironment{suppinfo}{%
+   \def\thesection{\thechapter.\Alph{section}}
+   \setcounter{section}{0}
+        \section{Appendix}%
+        \small
+        \begin{center}%
+          \vspace{\z@}%
+        \end{center}%
+}
+\makeatother
+\makeatletter
+\newenvironment{abstract}
+{%
+   \section*{Abstract}%
+   \sffamily
+   \small
+}
+{%
+   \clearpage
+   \rmfamily
+   \normalsize
+}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%
+% Custom first page
+%%%%%%%%%%%%%%%%%%%
+\renewcommand{\maketitle}{
+\thispagestyle{empty}
+\begin{center}
+{\Huge The title of your document}
+\end{center}
+}
+
+%\tolerance=1000
 \begin{document}
-\presetkeys{todonotes}{inline}{}%Always inline todos
-
+\presetkeys{todonotes}{inline,size=\small}{}%Always inline todos
+\pagestyle{fancy}
