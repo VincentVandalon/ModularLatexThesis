@@ -15,3 +15,7 @@ efficient way to compile my PhD thesis, while makelatex did not seem to offer th
 
 Note that this supports parallel compilation for the sub-documents, so run make -j all to
 save a lot of time!
+
+# My dissertation style
+
+I have also included the configuration I used for my dissertation; feel free to use this code if you want to!
